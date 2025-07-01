@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marinyame Studios • Quantum Edition</title>
+  <style>
+:root {
+      --bg: linear-gradient(135deg, #eaeef2, #fdfdfd);
+      --text: #111;
+      --accent: #0078ff;
+      --card: rgba(0, 0, 0, 0.04);
+      --border: rgba(0, 0, 0, 0.1);
+      --font: 'Segoe UI', sans-serif;
+}
+
+    body.dark {
+      --bg: linear-gradient(135deg, #000c1f, #1f1f2f);
+      --text: #e0e0e0;
+      --accent: #00ffe0;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.1);
+}
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease, color 0.4s ease;
+}
+
+    header {
+      text-align: center;
+      padding: 30px 20px;
+}
+
+.toggle-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 8px 12px;
+      border-radius: 6px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+}
+
+.section,.home {
+      display: none;
+      padding: 40px 20px;
+      max-width: 960px;
+      margin: auto;
+}
+
+.home { display: block;}
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      border-radius: 6px;
+}
+
+.btn-grid,.layout {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+}
+
+.slide-content {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: var(--card);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+}
+
+.whatsapp { background-color: #25D366; color: #fff;}
+.email { background-color: #EA4335; color: #fff;}
+.call { background-color: #6c757d; color: #fff;}
+.telegram { background-color: #229ED9; color: #fff;}
+
+.back-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+}
+
+.ecocash-box {
+      background-color: #005bac;
+      color: #fff;
+      padding: 12px 16px;
+      margin-top: 10px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: bold;
+      position: relative;
+}
+
+.ecocash-number {
+      font-size: 18px;
+      letter-spacing: 1px;
+      user-select: all;
+}
+
+.copy-btn,.confirm-btn {
+      margin-left: 10px;
+      background-color: #003f7d;
+      color: #fff;
+      border: none;
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+}
+
+.confirm-dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 8px;
+      z-index: 1000;
+      text-align: center;
+      backdrop-filter: blur(6px);
+}
+
+.confirm-dialog button {
+      margin: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #0078ff;
+      color: white;
+}
+
+.no-btn {
+      background-color: #888!important;
+}
+
+    input, textarea {
+      margin: 8px 0;
+      padding: 10px;
+width: 100%;
+      max-width: 400px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+}
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+}
+  </style>
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleTheme()" id="theme-toggle">Dark Mode</button>
+
+  <header>
+    <h1 id="site-name">Marinyame Studios ☀️</h1>
+    <p>Creative Design • Music • WhatsApp Bots</p>
+  </header>
+
+  <div id="home" class="home">
+    <button onclick="openPage('testimonials')">Testimonials</button>
+    <button onclick="openPage('faqs')">FAQs</button>
+    <button onclick="openPage('projects')">Projects</button>
+    <button onclick="openPage('team')">Team</button>
+    <button onclick="openPage('reach')">Reach Us</button>
+    <button onclick="openPage('auth-section')">🔐 Admin</button>
+  </div>
+  <!-- PROJECTS SECTION -->
+  <div id="projects" class="section">
+    <h2>Our Projects</h2>
+    <div class="layout">
+      <div>
+        <button onclick="toggleSlide('music')">Music</button>
+        <div id="music" class="slide-content">
+          🎵 Beats, mixes, commissions — $5 via EcoCash
+          <div class="ecocash-box">
+            Pay $5 to EcoCash #: <span class="ecocash-number" id="music-pay">0786440865</span>
+            <button class="copy-btn" onclick="copyToClipboard('music-pay')">Copy</button>
+            <button class="confirm-btn" onclick="openConfirmPopup('Music')">Confirm</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button onclick="toggleSlide('graphics')">Graphics</button>
+        <div id="graphics" class="slide-content">
+          🎨 Logos, social kits, covers — Payment via tiered plans
+        </div>
+      </div>
+      <div>
+        <button onclick="toggleSlide('bot')">Bot</button>
+        <div id="bot" class="slide-content">
+          🤖 Custom WhatsApp bots — $3 via EcoCash only
+          <div class="ecocash-box">
+            Pay $3 to EcoCash #: <span class="ecocash-number" id="bot-pay">0786440865</span>
+            <button class="copy-btn" onclick="copyToClipboard('bot-pay')">Copy</button>
+            <button class="confirm-btn" onclick="openConfirmPopup('Bot')">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <!-- TESTIMONIAL FORM -->
+  <div id="testimonials" class="section">
+    <h2>Leave a Testimony</h2>
+    <form id="testimonial-form" onsubmit="handleTestimonialSubmit(event)">
+      <input type="text" id="user-name" placeholder="Your name" required />
+      <textarea id="user-message" placeholder="Write your testimony here..." rows="4" required></textarea>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <!-- FAQs -->
+  <div id="faqs" class="section">
+    <h2>FAQs</h2>
+    <p><strong>How long does a bot take?</strong> 2–4 days depending on features.</p>
+    <p><strong>Do you allow revisions?</strong> Absolutely. We collaborate throughout.</p>
+    <p><strong>Do you offer custom branding?</strong> Yes, including logos, social kits, and more.</p>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <!-- TEAM -->
+  <div id="team" class="section">
+    <h2>Our Team</h2>
+    <div class="layout">
+      <div>
+        <button onclick="toggleSlide('sancho')">Sancho</button>
+        <div id="sancho" class="slide-content">
+          🎧 Sound engineer in training & UI enthusiast. Payment optional for collabs.
+        </div>
+      </div>
+      <div>
+        <button onclick="toggleSlide('owner')">Owner</button>
+        <div id="owner" class="slide-content">
+          👨🏽‍💻 Founder: Munyaradzi Marinyame. Designs the vision. Oversees all builds and strategy.
+        </div>
+      </div>
+    </div>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <!-- REACH US -->
+  <div id="reach" class="section">
+    <h2>Reach Us</h2>
+    <div class="btn-grid">
+      <a href="https://wa.me/263787673035" target="_blank"><button class="whatsapp">WhatsApp</button></a>
+      <a href="mailto:marinyamestudios@gmail.com"><button class="email">Email</button></a>
+      <a href="tel:0787673035"><button class="call">Call</button></a>
+      <a href="https://t.me/mrmosesclr" target="_blank"><button class="telegram">Telegram</button></a>
+    </div>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <!-- ADMIN ACCESS -->
+  <div id="auth-section" class="section">
+    <h2>Admin Access</h2>
+    <p>Enter access key to view submissions:</p>
+    <input type="password" id="admin-key" placeholder="Enter key..." />
+    <br>
+    <button onclick="verifyKey()">Unlock</button>
+<p id="access-msg" style="color: red;"></p>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <div id="testimony-admin" class="section" style="display: none;">
+    <h2>Private Testimonies (Admin Only)</h2>
+    <div id="testimony-list" style="white-space: pre-line;"></div>
+    <button class="back-btn" onclick="openPage('home')">Back</button>
+  </div>
+
+  <!-- PAYMENT CONFIRM POPUP -->
+  <div id="popup" class="confirm-dialog">
+    <p>Have you sent the EcoCash payment?</p>
+    <button onclick="handleConfirmYes()">Yes</button>
+    <button class="no-btn" onclick="closePopup()">No</button>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Powered by Marinyame Studios
+  </footer> 
+  <script>
+    const pages = [
+      'home', 'testimonials', 'faqs', 'projects',
+      'team', 'reach', 'auth-section', 'testimony-admin'
+    ];
+    let pendingService = '';
+
+    function openPage(id) {
+      pages.forEach(page => {
+        const section = document.getElementById(page);
+        if (section) section.style.display = (page === id)? 'block': 'none';
+});
+      if (id === 'testimony-admin') showTestimonies();
+}
+
+    function toggleSlide(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = (el.style.display === 'block')? 'none': 'block';
+}
+
+    function toggleTheme() {
+      const body = document.body;
+      const toggle = document.getElementById('theme-toggle');
+      const name = document.getElementById('site-name');
+      const isDark = body.classList.toggle('dark');
+      toggle.textContent = isDark? 'Light Mode': 'Dark Mode';
+      name.textContent = isDark? 'Marinyame Studios': 'Marinyame Studios ☀️';
+      localStorage.setItem('theme', isDark? 'dark': 'light');
+}
+
+    function copyToClipboard(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("EcoCash number copied: " + text);
+});
+}
+
+    function openConfirmPopup(service) {
+      pendingService = service;
+      document.getElementById("popup").style.display = "block";
+}
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+}
+
+    function handleConfirmYes() {
+      closePopup();
+      alert("Thanks! We'll verify your EcoCash payment for " + pendingService + ".");
+}
+
+    function handleTestimonialSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("user-name").value.trim();
+      const message = document.getElementById("user-message").value.trim();
+      if (name && message) {
+        const entry = `${name}:\n${message}\n\n`;
+        const existing = localStorage.getItem("testimonies") || "";
+        localStorage.setItem("testimonies", existing + entry);
+        alert("Thank you for your message!");
+        document.getElementById("testimonial-form").reset();
+        openPage('home');
+}
+}
+
+    function showTestimonies() {
+      const box = document.getElementById("testimony-list");
+      const data = localStorage.getItem("testimonies") || "No submissions yet.";
+      box.textContent = data;
+}
+
+    function verifyKey() {
+      const key = document.getElementById('admin-key').value;
+      const msg = document.getElementById('access-msg');
+      if (key === '1980') {
+        msg.textContent = '';
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('testimony-admin').style.display = 'block';
+        showTestimonies();
+} else {
+        msg.textContent = 'Invalid key. Try again.';
+}
+}
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = 'Light Mode';
+        document.getElementById('site-name').textContent = 'Marinyame Studios';
+}
+      document.getElementById("year").textContent = new Date().getFullYear();
+};
+  </script>
+</body>
+</html>
